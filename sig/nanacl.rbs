@@ -1,0 +1,123 @@
+module Nanacl
+  VERSION: String
+
+  # file: const.rb
+  # クソデカ値。（1 << 60）
+  BIG: Integer
+
+  # file: dijkstra.rb
+  # ダイクストラ法を用いて、始点から各頂点への最短距離を求める。
+  def self?.dijkstra:
+    (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, allow_separated: false) -> Hash[Integer, Integer]
+    | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, ?allow_separated: true) -> Hash[Integer, Integer?]
+
+  # file: dijkstra.rb
+  # ダイクストラ法を用いて、始点から各頂点への最短経路を求める。
+  def self?.dijkstra_path:
+    (
+      Hash[Integer, Hash[Integer, Integer]] graph,
+      Integer start,
+      allow_separated: false
+    ) -> Hash[Integer, [Integer, Array[Integer]]]
+    | (
+      Hash[Integer, Hash[Integer, Integer]] graph,
+      Integer start,
+      ?allow_separated: true
+    ) -> Hash[Integer, [Integer, Array[Integer]?]]
+
+  class DisconnectedGraphError < ArgumentError
+  end
+
+  # file: unionfind_weight.rb
+  # 重み付きUnionFind。
+  class UnionFindWeight
+    @n: Integer
+    @parent_or_size: Array[Integer]
+    @diff_weight: Array[Integer]
+
+    def initialize: (Integer n) -> void
+
+    # x と y が同じグループに属するかどうかを判定する。
+    def same: (Integer x, Integer y) -> bool
+    alias same? same
+
+    # x が属するグループの根を取得する。
+    def leader: (Integer x) -> Integer
+    alias find leader
+    alias root leader
+    alias [] leader
+
+    # x が属するグループの要素数を取得する。
+    def size: (Integer x) -> Integer
+
+    # x と y を同じグループにする。
+    def unite: (Integer x, Integer y, Integer w) -> void
+    alias merge unite
+
+    # x と y の間のコストを取得する。
+    def diff: (Integer x, Integer y) -> Integer
+
+    # x から親までのコストを取得する。
+    def weight: (Integer x) -> Integer
+
+    # グループを取得する。
+    def groups: -> Array[Array[Integer]]
+  end
+
+  # file: unionfind_map.rb
+  # 値を保存できるUnionFind。
+  class UnionFindMap[V < Object]
+    @n: Integer
+    @parent_or_size: Array[Integer]
+    @values: Array[V]
+    @merge: ^(V, V) -> V
+
+    def initialize:
+      (Integer n, default: ^(Integer index) -> V) { (V a, V b) -> V } -> void
+      | (Integer n, default: V) { (V a, V b) -> V } -> void
+      | (Integer n, values: Array[V]) { (V a, V b) -> V } -> void
+
+    # x と y が同じグループに属するかどうかを判定する。
+    def same: (Integer x, Integer y) -> bool
+    alias same? same
+
+    # x が属するグループの根を取得する。
+    def leader: (Integer x) -> Integer
+    alias find leader
+    alias root leader
+
+    # x が属するグループの値を取得する。
+    def []: (Integer x) -> V
+
+    # x が属するグループの値を設定する。
+    def []=: (Integer x, V value) -> void
+
+    # x が属するグループの要素数を取得する。
+    def size: (Integer x) -> Integer
+
+    # x と y を同じグループにする。
+    def unite: (Integer x, Integer y) -> void
+    alias merge unite
+
+    # x と y の間のコストを取得する。
+    def diff: (Integer x, Integer y) -> Integer
+
+    # x から親までのコストを取得する。
+    def weight: (Integer x) -> Integer
+
+    # グループを取得する。
+    def groups: -> Array[Array[Integer]]
+  end
+end
+
+class Array[unchecked out Elem] < Object
+  @sums: Array[Integer]?
+
+  # file: array_sum.rb
+  # 特定範囲の要素の和を求める。
+  def sum_in_range: (Range[Integer] range) -> Integer
+
+  # file: array_bfind.rb
+  # 特定の値の範囲を二分探索で求める。
+  def binary_find: (Integer | Range[Integer] target) -> [Integer, Integer]
+end
