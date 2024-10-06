@@ -23,7 +23,7 @@ module Nanacl
       Hash[Integer, Hash[Integer, Integer]] graph,
       Integer start,
       ?allow_separated: true
-    ) -> Hash[Integer, [Integer, Array[Integer]?]]
+    ) -> Hash[Integer, [Integer, Array[Integer]]?]
 
   class DisconnectedGraphError < ArgumentError
   end
