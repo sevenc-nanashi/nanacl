@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "nanacl/array_bfind"
 
 RSpec.describe "Array#binary_find" do

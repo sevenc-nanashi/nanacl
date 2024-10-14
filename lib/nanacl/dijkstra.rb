@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./const.rb"
+require_relative "./const"
 require "ac-library-rb/priority_queue"
 
 module Nanacl
@@ -51,7 +51,7 @@ module Nanacl
       next if seen[current]
       seen[current] = true
       graph[current].each do |neighbor, distance|
-        current_distance, current_path = (result[current] || [BIG, []])
+        current_distance, current_path = result[current] || [BIG, []]
         alt = current_distance + distance
         if result[neighbor].nil? || alt < result[neighbor][0]
           result[neighbor] = [alt, current_path + [neighbor]]

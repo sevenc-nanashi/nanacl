@@ -23,7 +23,7 @@ module Nanacl
           end
         else
           raise ArgumentError.new, "either values or default must be given"
-        end # steep:ignore
+        end
 
       @merge = merge
     end

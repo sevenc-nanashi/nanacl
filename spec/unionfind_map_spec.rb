@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "nanacl/unionfind_map"
 
 RSpec.describe "Nanacl::UnionFindMap" do

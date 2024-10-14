@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Array
   def sum_in_range(range)
     unless @sums

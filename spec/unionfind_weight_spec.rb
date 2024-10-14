@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "nanacl/unionfind_weight"
 
 RSpec.describe "Nanacl::UnionFindWeight" do
