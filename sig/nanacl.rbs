@@ -5,6 +5,10 @@ module Nanacl
   # クソデカ値。（1 << 60）
   BIG: Integer
 
+  # file: logi.rb
+  # log -> floorを正確に求める。
+  def self.logi: (Integer value, Integer base) -> Integer
+
   # file: dijkstra.rb
   # ダイクストラ法を用いて、始点から各頂点への最短距離を求める。
   def self?.dijkstra:
