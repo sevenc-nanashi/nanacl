@@ -2,7 +2,14 @@
 require "nanacl/logi"
 
 RSpec.describe "Nanacl.logi" do
-  [[1, 2, 0], [2**5, 2, 5], [2**5 - 1, 2, 4]].each do |(value, base, expected)|
+  [
+    [1, 2, 0],
+    [2**5, 2, 5],
+    [2**5 - 1, 2, 4],
+    *(2..16).flat_map do |i|
+      [[i**i - 1, i, i - 1], [i**i, i, i], [i**i + 1, i, i]]
+    end
+  ].each do |(value, base, expected)|
     it "works with value=#{value}, base=#{base}" do
       expect(Nanacl.logi(value, base)).to eq(expected)
     end
