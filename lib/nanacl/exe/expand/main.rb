@@ -75,9 +75,9 @@ loop do
         nonce += 1
         next <<~RUBY
           def __expand__#{nonce}(b) # #{module_path}
-            b.eval <<~'INNER_RUBY'
+            b.eval <<~'INNER_RUBY_#{nonce}'
             #{library}
-            INNER_RUBY
+            INNER_RUBY_#{nonce}
           end
           __expand__#{nonce}(binding)
           RUBY
