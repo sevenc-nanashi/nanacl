@@ -6,6 +6,7 @@ target :lib do
 
   check "lib"
   check "Gemfile"
+  ignore "lib/nanacl/exe"
   configure_code_diagnostics(D::Ruby.default)
 end
 

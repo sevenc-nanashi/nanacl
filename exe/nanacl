@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "optparse"
+
+parser = OptionParser.new
+
+parser.banner = <<~BANNER
+Usage: nanacl [subcommand] [options]
+Subcommands:
+  expand  Expand libraries
+BANNER
+
+parser.order!(ARGV)
+if ARGV.empty?
+  puts parser
+  exit
+else
+  command = ARGV.shift
+  if $LOAD_PATH.resolve_feature_path("nanacl/exe/#{command}/main")
+    require "nanacl/exe/#{command}/main"
+  else
+    warn "no such subcommand: #{command}"
+    exit 1
+  end
+end
