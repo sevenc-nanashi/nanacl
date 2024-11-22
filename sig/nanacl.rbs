@@ -123,5 +123,5 @@ class Array[unchecked out Elem] < Object
 
   # file: array_bfind.rb
   # 特定の値の範囲を二分探索で求める。
-  def binary_find: (Integer | Range[Integer] target) -> [Integer, Integer]
+  def binary_find: (Integer | Range[Integer] target) -> ([Integer, Integer] | nil)
 end
