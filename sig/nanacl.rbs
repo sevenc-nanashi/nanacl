@@ -124,4 +124,18 @@ class Array[unchecked out Elem] < Object
   # file: array_bfind.rb
   # 特定の値の範囲を二分探索で求める。
   def binary_find: (Integer | Range[Integer] target) -> ([Integer, Integer] | nil)
+
+  # file: bsearch_right.rb
+  # bsearchのfind-maximum版。
+  def bsearch_right: () { (Elem) -> bool } -> (Elem | nil)
+
+  # file: bsearch_right.rb
+  # bsearch_indexのfind-maximum版。
+  def bsearch_index_right: () { (Elem) -> bool } -> (Integer | nil)
+end
+
+class Range[out Elem] < Object
+  # file: range_bsearch.rb
+  # bsearchのfind-maximum版。
+  def bsearch_right: () { (Elem) -> bool } -> (Elem | nil)
 end
