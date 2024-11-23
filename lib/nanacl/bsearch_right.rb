@@ -8,7 +8,7 @@ class Array
 
   def bsearch_index_right(&block)
     right = bsearch_index { |elem| !block.call(elem) }
-    if right == nil
+    if right.nil?
       size - 1
     elsif right == 0
       nil
@@ -21,7 +21,7 @@ end
 class Range
   def bsearch_right(&block)
     right = bsearch { |elem| !block.call(elem) }
-    if right == nil
+    if right.nil?
       last
     elsif right == first
       nil
