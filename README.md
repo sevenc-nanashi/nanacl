@@ -28,7 +28,7 @@
 | [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [`array_bfind.rb`](./lib/nanacl/array_bfind.rb)           | 二分探索を使った値の範囲の探索。          |
 | [:100:](./verify/static_range_sum.test.rb)                                    | [`array_sum.rb`](./lib/nanacl/array_sum.rb)               | Range指定の区間和。                       |
 | [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [`bsearch_right.rb`](./lib/nanacl/bsearch_right.rb)       | find-maximum式二分探索。                  |
-| :question:                                                                    | [`const.rb`](./lib/nanacl/const.rb)                       | 定数。                                    |
+| [:100:](./verify/unionfind_with_potential.test.rb)                            | [`const.rb`](./lib/nanacl/const.rb)                       | 定数。                                    |
 | [:100:](./verify/shortest_path.test.rb)                                       | [`dijkstra.rb`](./lib/nanacl/dijkstra.rb)                 | ダイクストラ法による最短距離/経路の取得。 |
 | [:100:](./verify/abc215_b_log2.test.rb)                                       | [`logi.rb`](./lib/nanacl/logi.rb)                         | 正確な整数log。                           |
 | [:white_check_mark:](https://atcoder.jp/contests/abc380/submissions/60139803) | [`unionfind_map.rb`](./lib/nanacl/unionfind_map.rb)       | モノイドの乗るUnionFind。                 |
