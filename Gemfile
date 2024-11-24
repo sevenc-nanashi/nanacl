@@ -16,3 +16,6 @@ gem "steep", "~> 1.8"
 gem "syntax_tree", "~> 6.2"
 
 gem "rspec-snapshot", "~> 2.0"
+
+gem "rubocop-rake", "~> 0.6.0"
+gem "rubocop-rspec", "~> 3.2"

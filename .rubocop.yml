@@ -2,6 +2,10 @@ AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
 
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
 inherit_gem:
   syntax_tree: config/rubocop.yml
 
@@ -27,4 +31,13 @@ Style/YodaCondition:
   EnforcedStyle: forbid_for_equality_operators_only
 
 Style/IfUnlessModifier:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/DescribeClass:
   Enabled: false

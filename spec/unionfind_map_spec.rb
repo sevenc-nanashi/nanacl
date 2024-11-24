@@ -2,7 +2,7 @@
 require "nanacl/unionfind_map"
 
 RSpec.describe "Nanacl::UnionFindMap" do
-  it "works" do
+  it "can have monoid values" do
     ufm = Nanacl::UnionFindMap.new(5, values: [1, 2, 3, 4, 5]) { |a, b| a + b }
 
     ufm.merge(0, 1)
