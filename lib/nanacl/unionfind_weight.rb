@@ -55,7 +55,9 @@ module Nanacl
       if @parent_or_size[a] < 0
         a
       else
-        (@parent_or_size[a] = leader(@parent_or_size[a]))
+        root = leader(@parent_or_size[a])
+        @diff_weight[a] += @diff_weight[@parent_or_size[a]]
+        @parent_or_size[a] = root
       end
     end
     alias root leader
