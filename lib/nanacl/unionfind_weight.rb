@@ -4,13 +4,13 @@
 
 module Nanacl
   class UnionFindWeight
-    def initialize(n)
+    def initialize(n, default_weight: 0)
       @n = n
       @parent_or_size = Array.new(n, -1)
       # root node: -1 * component size
       # otherwise: parent
 
-      @diff_weight = Array.new(n, 0)
+      @diff_weight = Array.new(n, default_weight)
     end
 
     attr_reader :parent_or_size, :n

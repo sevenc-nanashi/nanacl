@@ -5,6 +5,10 @@ module Nanacl
   # クソデカ値。（1 << 60）
   BIG: Integer
 
+  # file: const.rb
+  # 例のMod。（998244353）
+  MOD: Integer
+
   # file: logi.rb
   # log -> floorを正確に求める。
   def self.logi: (Integer value, Integer base) -> Integer
@@ -43,12 +47,12 @@ module Nanacl
 
   # file: unionfind_weight.rb
   # 重み付きUnionFind。
-  class UnionFindWeight
+  class UnionFindWeight[W < Object = Integer]
     @n: Integer
     @parent_or_size: Array[Integer]
     @diff_weight: Array[Integer]
 
-    def initialize: (Integer n) -> void
+    def initialize: (Integer n, default_weight: W) -> void
 
     # x と y が同じグループに属するかどうかを判定する。
     def same: (Integer x, Integer y) -> bool
@@ -64,14 +68,14 @@ module Nanacl
     def size: (Integer x) -> Integer
 
     # x と y を同じグループにする。
-    def unite: (Integer x, Integer y, Integer w) -> void
+    def unite: (Integer x, Integer y, W w) -> void
     alias merge unite
 
     # x と y の間のコストを取得する。
-    def diff: (Integer x, Integer y) -> Integer
+    def diff: (Integer x, Integer y) -> W
 
     # x から親までのコストを取得する。
-    def weight: (Integer x) -> Integer
+    def weight: (Integer x) -> W
 
     # グループを取得する。
     def groups: -> Array[Array[Integer]]

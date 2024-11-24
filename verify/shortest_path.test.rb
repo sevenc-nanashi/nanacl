@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path
-#
+
 require "nanacl/dijkstra"
 
 in_n, in_m, in_s, in_t = gets.chomp.split.map(&:to_i)
