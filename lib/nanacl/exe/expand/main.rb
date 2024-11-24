@@ -42,13 +42,23 @@ file = ARGV[0]
 output = ARGV[1]
 
 content = +File.read(file)
+content = <<~RUBY
+main = -> do
+#{content}
+end
+RUBY
 kept_libraries = Set.new
 expanded_libraries = Set.new
 errored_libraries = Set.new
+removed_libraries = Set.new
 nonce = 0
 loop do
-  expanded = false
-  content.gsub!(/require ("|')(.+?)\1/) do |original|
+  libraries = []
+  content.gsub!(/^require ("|')(.+?)\1( # nanacl:remove)?/) do |original|
+    if $LAST_MATCH_INFO[3]
+      removed_libraries << $LAST_MATCH_INFO[2]
+      next original
+    end
     module_path = $LAST_MATCH_INFO[2]
     if module_path.start_with?("./") || module_path.start_with?("../")
       next original
@@ -68,19 +78,17 @@ loop do
       kept_libraries << module_path
     else
       expanded_libraries << module_path
-      expanded = true
       type, path = $LOAD_PATH.resolve_feature_path(module_path) || [nil, nil]
       if type == :rb && path
         library = File.read(path)
         nonce += 1
-        next <<~RUBY
-          def __expand__#{nonce}(b) # #{module_path}
-            b.eval <<~'INNER_RUBY_#{nonce}'
-            #{library}
-            INNER_RUBY_#{nonce}
-          end
-          __expand__#{nonce}(binding)
-          RUBY
+        header = "# == #{module_path} "
+        libraries << <<~LIBRARY
+        #{header.ljust(80, "-")}
+        #{library}
+        LIBRARY
+
+        next "# #{original} (expanded: $#{module_path}$)"
       else
         errored_libraries << module_path
       end
@@ -88,8 +96,23 @@ loop do
 
     next original
   end
-  break unless expanded
+
+  break if libraries.empty?
+  unless content.include?("# === dependencies ")
+    content += "\n"
+    content += "# === dependencies ".ljust(80, "-")
+    content += "\n"
+  end
+  content += libraries.join("\n")
 end
+content.insert(0, "# This file is expanded by nanacl.\n")
+content.insert(0, "# frozen_string_literal: true\n")
+content += "\nmain.call\n"
+content =
+  content.gsub(/\$([^$]+)\$/) do
+    line_number = content.lines.find_index { |line| line.include?("# == #{$LAST_MATCH_INFO[1]} ") } + 1
+    "L#{line_number}"
+  end
 
 prefix = output ? "" : "# "
 puts "#{prefix}Kept libraries:"
@@ -110,7 +133,12 @@ if errored_libraries.empty?
 else
   errored_libraries.each { |lib| puts "#{prefix}- #{lib}" }
 end
-content.insert(0, "# This file is expanded by nanacl.\n")
+puts "#{prefix}Removed libraries:"
+if removed_libraries.empty?
+  puts "#{prefix}  (none)"
+else
+  removed_libraries.each { |lib| puts "#{prefix}- #{lib}" }
+end
 if output
   File.write(output, content)
 else
