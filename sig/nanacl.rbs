@@ -10,24 +10,33 @@ module Nanacl
   def self.logi: (Integer value, Integer base) -> Integer
 
   # file: dijkstra.rb
-  # ダイクストラ法を用いて、始点から各頂点への最短距離を求める。
+  # ダイクストラ法を用いて、頂点から頂点への最短距離を求める。
   def self?.dijkstra:
-    (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, allow_separated: false) -> Hash[Integer, Integer]
-    | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, ?allow_separated: true) -> Hash[Integer, Integer?]
+    (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, allow_separated: false) -> Integer
+    | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, ?allow_separated: true) -> Integer?
 
   # file: dijkstra.rb
-  # ダイクストラ法を用いて、始点から各頂点への最短経路を求める。
+  # ダイクストラ法を用いて、頂点から全頂点への最短距離を求める。
+  def self?.dijkstra_all:
+    (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, allow_separated: false) -> Hash[Integer, Integer]
+    | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, ?allow_separated: true) -> Hash[Integer, Integer]?
+
+  # file: dijkstra.rb
+  # ダイクストラ法を用いて、頂点から頂点への最短経路を求める。
+  # 経路には start と to も含まれる。
   def self?.dijkstra_path:
     (
       Hash[Integer, Hash[Integer, Integer]] graph,
       Integer start,
+      Integer to,
       allow_separated: false
-    ) -> Hash[Integer, [Integer, Array[Integer]]]
+    ) -> [Integer, Array[Integer]]
     | (
       Hash[Integer, Hash[Integer, Integer]] graph,
       Integer start,
+      Integer to,
       ?allow_separated: true
-    ) -> Hash[Integer, [Integer, Array[Integer]]?]
+    ) -> [Integer, Array[Integer]]?
 
   class DisconnectedGraphError < ArgumentError
   end

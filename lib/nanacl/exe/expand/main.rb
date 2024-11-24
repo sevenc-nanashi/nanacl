@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 require "English"
-require_relative "libraries"
+require "fileutils"
 require "json"
+require_relative "libraries"
 
 def run(args)
   internal_info_header = "nanacl_internal_info"
@@ -208,6 +209,8 @@ def run(args)
     removed_libraries.each { |lib| puts "#{prefix}- #{lib}" }
   end
   if output
+    dir = File.dirname(output)
+    FileUtils.mkdir_p(dir)
     File.write(output, content)
   else
     puts "#"

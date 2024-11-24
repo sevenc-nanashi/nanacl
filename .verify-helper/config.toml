@@ -1,0 +1,3 @@
+[languages.rb]
+compile = "bundle exec ruby ./exe/nanacl expand {basedir}/{path} {tempdir}/{path}"
+execute = "ruby {tempdir}/{path}"
