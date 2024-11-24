@@ -10,14 +10,14 @@
 
 - ライブラリ展開機能
 
-- `array_bfind.rb`：[二分探索を使ったArrayの値探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
-- `array_sum.rb`：Range指定のArrayの区間和。
-- `bsearch_right.rb`：[find-maximum式二分探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
-- `const.rb`：定数。
-- `dijkstra.rb`：ダイクストラ法での最短距離、最短経路の取得。
-- `logi.rb`：[正確な整数log。](https://atcoder.jp/contests/abc380/submissions/60139798)
-- `unionfind_map.rb`：[モノイドの乗るUnionFind。](https://atcoder.jp/contests/abc380/submissions/60139803)
-- `unionfind_weight.rb`：[重み付きUnionFind。](https://atcoder.jp/contests/abc373/submissions/60140009)
+- [`array_bfind.rb`](./lib/nanacl/array_bfind.rb)：[二分探索を使ったArrayの値探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
+- [`array_sum.rb`](./lib/nanacl/array_sum.rb)：Range指定のArrayの区間和。
+- [`bsearch_right.rb`](./lib/nanacl/bsearch_right.rb)：[find-maximum式二分探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
+- [`const.rb`](./lib/nanacl/const.rb)：定数。
+- [`dijkstra.rb`](./lib/nanacl/dijkstra.rb)：ダイクストラ法での最短距離、最短経路の取得。
+- [`logi.rb`](./lib/nanacl/logi.rb)：[正確な整数log。](https://atcoder.jp/contests/abc380/submissions/60139798)
+- [`unionfind_map.rb`](./lib/nanacl/unionfind_map.rb)：[モノイドの乗るUnionFind。](https://atcoder.jp/contests/abc380/submissions/60139803)
+- [`unionfind_weight.rb`](./lib/nanacl/unionfind_weight.rb)：[重み付きUnionFind。](https://atcoder.jp/contests/abc373/submissions/60140009)
 
 ## 使い方：CLI
 
