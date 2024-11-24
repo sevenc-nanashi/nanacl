@@ -3,7 +3,7 @@
 
 require "nanacl/array_sum"
 
-in_n, in_q = gets.chomp.split.map(&:to_i)
+_in_n, in_q = gets.chomp.split.map(&:to_i)
 in_a = gets.chomp.split.map(&:to_i)
 in_q.times do
   q_l, q_r = gets.chomp.split.map(&:to_i)

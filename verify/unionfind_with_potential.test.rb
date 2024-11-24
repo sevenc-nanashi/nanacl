@@ -15,7 +15,7 @@ in_q.times do
   in [0, in_u, in_v, in_w]
     is_valid = false
     is_valid = true if !is_valid && !uf.same?(in_u, in_v)
-    if !is_valid
+    unless is_valid
       current_diff = uf.diff(in_v, in_u)
       is_valid = current_diff == AcLibraryRb::ModInt.new(in_w)
     end

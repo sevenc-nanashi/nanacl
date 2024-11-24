@@ -5,19 +5,34 @@
 
 ## 機能一覧
 
-> [!NOTE]
-> リンクをクリックすると実際にその機能を使ってACした提出が表示されます。
+### CLI
 
 - ライブラリ展開機能
 
-- [`array_bfind.rb`](./lib/nanacl/array_bfind.rb)：[二分探索を使ったArrayの値探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
-- [`array_sum.rb`](./lib/nanacl/array_sum.rb)：Range指定のArrayの区間和。
-- [`bsearch_right.rb`](./lib/nanacl/bsearch_right.rb)：[find-maximum式二分探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
-- [`const.rb`](./lib/nanacl/const.rb)：定数。
-- [`dijkstra.rb`](./lib/nanacl/dijkstra.rb)：ダイクストラ法での最短距離、最短経路の取得。
-- [`logi.rb`](./lib/nanacl/logi.rb)：[正確な整数log。](https://atcoder.jp/contests/abc380/submissions/60139798)
-- [`unionfind_map.rb`](./lib/nanacl/unionfind_map.rb)：[モノイドの乗るUnionFind。](https://atcoder.jp/contests/abc380/submissions/60139803)
-- [`unionfind_weight.rb`](./lib/nanacl/unionfind_weight.rb)：[重み付きUnionFind。](https://atcoder.jp/contests/abc373/submissions/60140009)
+### ライブラリ
+
+[`/verify`](./verify) ディレクトリには、[verification-helper](https://github.com/online-judge-tools/verification-helper) 用の証明ファイルが含まれています。
+以下に凡例を示します：
+
+| 記号               | 意味                      |
+| ------------------ | ------------------------- |
+| :100:              | `./verify` にて動作確認済 |
+| :white_check_mark: | AtCoder にて動作確認済    |
+| :o:                | RSpec にて動作確認済      |
+| :question:         | 動作未確認                |
+
+:question: 以外の記号は、クリックするとそれに対応するコードや提出が表示されます。
+
+| 状態                                                                          | ファイル名                                                | 機能                                      |
+| ----------------------------------------------------------------------------- | --------------------------------------------------------- | ----------------------------------------- |
+| [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [`array_bfind.rb`](./lib/nanacl/array_bfind.rb)           | 二分探索を使った値の範囲の探索。          |
+| [:100:](./verify/static_range_sum.test.rb)                                    | [`array_sum.rb`](./lib/nanacl/array_sum.rb)               | Range指定の区間和。                       |
+| [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [`bsearch_right.rb`](./lib/nanacl/bsearch_right.rb)       | find-maximum式二分探索。                  |
+| :question:                                                                    | [`const.rb`](./lib/nanacl/const.rb)                       | 定数。                                    |
+| [:100:](./verify/shortest_path.test.rb)                                       | [`dijkstra.rb`](./lib/nanacl/dijkstra.rb)                 | ダイクストラ法による最短距離/経路の取得。 |
+| [:100:](./verify/abc215_b_log2.test.rb)                                       | [`logi.rb`](./lib/nanacl/logi.rb)                         | 正確な整数log。                           |
+| [:white_check_mark:](https://atcoder.jp/contests/abc380/submissions/60139803) | [`unionfind_map.rb`](./lib/nanacl/unionfind_map.rb)       | モノイドの乗るUnionFind。                 |
+| [:100:](./verify/unionfind_with_potential.test.rb)                            | [`unionfind_weight.rb`](./lib/nanacl/unionfind_weight.rb) | 重み付きUnionFind。                       |
 
 ## 使い方：CLI
 

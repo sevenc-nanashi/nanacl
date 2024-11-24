@@ -41,3 +41,6 @@ RSpec/MultipleExpectations:
 
 RSpec/DescribeClass:
   Enabled: false
+
+Lint/AmbiguousOperator:
+  Enabled: false

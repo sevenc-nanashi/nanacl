@@ -3,7 +3,7 @@
 
 require "nanacl/dijkstra"
 
-in_n, in_m, in_s, in_t = gets.chomp.split.map(&:to_i)
+_in_n, in_m, in_s, in_t = gets.chomp.split.map(&:to_i)
 in_abc = in_m.times.map { gets.split.map(&:to_i) }
 
 graph = {}
