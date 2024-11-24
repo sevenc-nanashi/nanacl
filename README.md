@@ -10,12 +10,12 @@
 
 - ライブラリ展開機能
 
-- `array_bfind`：[二分探索を使ったArrayの値探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
-- `array_sum`：Range指定のArrayの区間和。
-- `bsearch_right`：[find-maximum式二分探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
+- `array_bfind.rb`：[二分探索を使ったArrayの値探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
+- `array_sum.rb`：Range指定のArrayの区間和。
+- `bsearch_right.rb`：[find-maximum式二分探索。](https://atcoder.jp/contests/abc381/submissions/60139738)
 - `const.rb`：定数。
 - `dijkstra.rb`：ダイクストラ法での最短距離、最短経路の取得。
-- `logi.rb`：[より正確な整数log。](https://atcoder.jp/contests/abc380/submissions/60139798)
+- `logi.rb`：[正確な整数log。](https://atcoder.jp/contests/abc380/submissions/60139798)
 - `unionfind_map.rb`：[モノイドの乗るUnionFind。](https://atcoder.jp/contests/abc380/submissions/60139803)
 - `unionfind_weight.rb`：[重み付きUnionFind。](https://atcoder.jp/contests/abc373/submissions/60140009)
 
