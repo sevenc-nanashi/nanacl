@@ -19,6 +19,8 @@ else
   command = ARGV.shift
   if $LOAD_PATH.resolve_feature_path("nanacl/exe/#{command}/main")
     require "nanacl/exe/#{command}/main"
+
+    run(ARGV)
   else
     warn "no such subcommand: #{command}"
     exit 1
