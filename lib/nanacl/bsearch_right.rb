@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Array
-  def bsearch_right(&block)
-    index = bsearch_index_right(&block)
+  def bsearch_right(&)
+    index = bsearch_index_right(&)
     index && self[index]
   end
 
