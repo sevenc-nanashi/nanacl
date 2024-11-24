@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./const"
+require_relative "const"
 require "ac-library-rb/priority_queue"
 
 module Nanacl

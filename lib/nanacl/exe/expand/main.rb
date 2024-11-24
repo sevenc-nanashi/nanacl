@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "English"
-require_relative "./libraries"
+require_relative "libraries"
 
 def run(args)
   expand_params = { mode: :blacklist, includes: %w[], excludes: %w[] }
@@ -35,13 +35,13 @@ def run(args)
 
   subparser.parse!(args)
 
-  if ARGV.empty?
+  if args.empty?
     puts subparser.help
     exit
   end
 
-  file = ARGV[0]
-  output = ARGV[1]
+  file = args[0]
+  output = args[1]
 
   content = +File.read(file)
   content = <<~RUBY
@@ -92,6 +92,7 @@ RUBY
 
           next "# #{original} (expanded: $#{module_path}$)"
         else
+          warn "Failed to expand #{module_path}: not found"
           errored_libraries << module_path
         end
       end
