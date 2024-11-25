@@ -23,16 +23,16 @@
 
 :question: 以外の記号は、クリックするとそれに対応するコードや提出が表示されます。
 
-| 状態                                                                          | ファイル名                                                | 機能                                      |
-| ----------------------------------------------------------------------------- | --------------------------------------------------------- | ----------------------------------------- |
-| [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [`array_bfind.rb`](./lib/nanacl/array_bfind.rb)           | 二分探索を使った値の範囲の探索。          |
-| [:100:](./verify/static_range_sum.test.rb)                                    | [`array_sum.rb`](./lib/nanacl/array_sum.rb)               | Range指定の区間和。                       |
-| [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [`bsearch_right.rb`](./lib/nanacl/bsearch_right.rb)       | find-maximum式二分探索。                  |
-| [:100:](./verify/unionfind_with_potential.test.rb)                            | [`const.rb`](./lib/nanacl/const.rb)                       | 定数。                                    |
-| [:100:](./verify/shortest_path.test.rb)                                       | [`dijkstra.rb`](./lib/nanacl/dijkstra.rb)                 | ダイクストラ法による最短距離/経路の取得。 |
-| [:100:](./verify/abc215_b_log2.test.rb)                                       | [`logi.rb`](./lib/nanacl/logi.rb)                         | 正確な整数log。                           |
-| [:white_check_mark:](https://atcoder.jp/contests/abc380/submissions/60139803) | [`unionfind_map.rb`](./lib/nanacl/unionfind_map.rb)       | モノイドの乗るUnionFind。                 |
-| [:100:](./verify/unionfind_with_potential.test.rb)                            | [`unionfind_weight.rb`](./lib/nanacl/unionfind_weight.rb) | 重み付きUnionFind。                       |
+|                                                    |                                                                               |                                        | ファイル名                                                | 機能                                      |
+| -------------------------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------- | --------------------------------------------------------- | ----------------------------------------- |
+|                                                    | [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [:o:](./spec/array_bfind_spec.rb)      | [`array_bfind.rb`](./lib/nanacl/array_bfind.rb)           | 二分探索を使った値の範囲の探索。          |
+| [:100:](./verify/static_range_sum.test.rb)         |                                                                               | [:o:](./spec/array_sum_spec.rb)        | [`array_sum.rb`](./lib/nanacl/array_sum.rb)               | Range指定の区間和。                       |
+|                                                    | [:white_check_mark:](https://atcoder.jp/contests/abc381/submissions/60139738) | [:o:](./spec/bsearch_right_spec.rb)    | [`bsearch_right.rb`](./lib/nanacl/bsearch_right.rb)       | find-maximum式二分探索。                  |
+| [:100:](./verify/unionfind_with_potential.test.rb) |                                                                               |                                        | [`const.rb`](./lib/nanacl/const.rb)                       | 定数。                                    |
+| [:100:](./verify/shortest_path.test.rb)            |                                                                               | [:o:](./spec/dijkstra_spec.rb)         | [`dijkstra.rb`](./lib/nanacl/dijkstra.rb)                 | ダイクストラ法による最短距離/経路の取得。 |
+| [:100:](./verify/abc215_b_log2.test.rb)            |                                                                               | [:o:](./spec/nanacl_spec.rb)           | [`logi.rb`](./lib/nanacl/logi.rb)                         | 正確な整数log。                           |
+|                                                    | [:white_check_mark:](https://atcoder.jp/contests/abc380/submissions/60139803) | [:o:](./spec/unionfind_map_spec.rb)    | [`unionfind_map.rb`](./lib/nanacl/unionfind_map.rb)       | モノイドの乗るUnionFind。                 |
+| [:100:](./verify/unionfind_with_potential.test.rb) | [:white_check_mark:](https://atcoder.jp/contests/abc373/submissions/60140009) | [:o:](./spec/unionfind_weight_spec.rb) | [`unionfind_weight.rb`](./lib/nanacl/unionfind_weight.rb) | 重み付きUnionFind。                       |
 
 ## 使い方：CLI
 

@@ -86,6 +86,7 @@ module Nanacl
       seen[current] = true
       previous_vertex[current] = previous
       break if current == to
+      
       graph[current]&.each do |neighbor, distance|
         current_distance,  = result[current] || [BIG, -1]
         alt_distance = current_distance + distance
