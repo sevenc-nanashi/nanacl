@@ -48,12 +48,12 @@ def run(args)
   output = args[1]
 
   content = +File.read(file)
-  header = "# === main script ".ljust(80, "-")
+  header = "main = -> do # ".ljust(80, "=")
+  footer = "end # ".ljust(80, "-")
   content = <<~RUBY
   #{header}
-  main = -> do
   #{content}
-  end
+  #{footer}
   RUBY
   kept_libraries = Set.new
   expanded_libraries = Set.new
@@ -108,7 +108,7 @@ def run(args)
             #{library}
             LIBRARY
 
-            next("# #{original} (expanded: $#{module_path}$)")
+            next("# #{original} # (expanded: $#{module_path}$)")
           else
             unless errored_libraries.include?(module_path)
               warn "Failed to expand #{module_path}: not found"
@@ -130,7 +130,7 @@ def run(args)
             #{library}
             LIBRARY
 
-            next("# #{original} (expanded: $#{module_path}$)")
+            next("# #{original} # (expanded: $#{module_path}$)")
           else
             unless errored_libraries.include?(module_path)
               warn "Failed to expand #{module_path}: not found"
