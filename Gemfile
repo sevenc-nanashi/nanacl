@@ -21,3 +21,5 @@ gem "rubocop-rake", "~> 0.6.0"
 gem "rubocop-rspec", "~> 3.2"
 
 gem "rubocop-rubycw", "~> 0.1.6"
+
+gem "rubocop-on-rbs", "~> 1.2"

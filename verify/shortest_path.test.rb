@@ -19,5 +19,5 @@ if path
   puts "#{cost} #{route.size - 1}"
   route.each_cons(2).each { |u, v| puts "#{u} #{v}" }
 else
-  puts -1
+  puts(-1)
 end

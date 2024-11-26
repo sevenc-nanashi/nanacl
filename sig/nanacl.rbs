@@ -15,27 +15,24 @@ module Nanacl
 
   # file: dijkstra.rb
   # ダイクストラ法を用いて、頂点から頂点への最短距離を求める。
-  def self?.dijkstra:
-    (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, allow_separated: false) -> Integer
-    | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, ?allow_separated: true) -> Integer?
+  def self?.dijkstra: (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, allow_separated: false) -> Integer
+                    | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, ?allow_separated: true) -> Integer?
 
   # file: dijkstra.rb
   # ダイクストラ法を用いて、頂点から全頂点への最短距離を求める。
-  def self?.dijkstra_all:
-    (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, allow_separated: false) -> Hash[Integer, Integer]
-    | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, ?allow_separated: true) -> Hash[Integer, Integer]?
+  def self?.dijkstra_all: (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, allow_separated: false) -> Hash[Integer, Integer]
+                        | (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, ?allow_separated: true) -> Hash[Integer, Integer]?
 
   # file: dijkstra.rb
   # ダイクストラ法を用いて、頂点から頂点への最短経路を求める。
   # 経路には start と to も含まれる。
-  def self?.dijkstra_path:
-    (
+  def self?.dijkstra_path: (
       Hash[Integer, Hash[Integer, Integer]] graph,
       Integer start,
       Integer to,
       allow_separated: false
     ) -> [Integer, Array[Integer]]
-    | (
+                         | (
       Hash[Integer, Hash[Integer, Integer]] graph,
       Integer start,
       Integer to,
@@ -78,7 +75,7 @@ module Nanacl
     def weight: (Integer x) -> W
 
     # グループを取得する。
-    def groups: -> Array[Array[Integer]]
+    def groups: () -> Array[Array[Integer]]
   end
 
   # file: unionfind_map.rb
@@ -89,10 +86,9 @@ module Nanacl
     @values: Array[V]
     @merge: ^(V, V) -> V
 
-    def initialize:
-      (Integer n, default: ^(Integer index) -> V) { (V a, V b) -> V } -> void
-      | (Integer n, default: V) { (V a, V b) -> V } -> void
-      | (Integer n, values: Array[V]) { (V a, V b) -> V } -> void
+    def initialize: (Integer n, default: ^(Integer index) -> V) { (V a, V b) -> V } -> void
+                  | (Integer n, default: V) { (V a, V b) -> V } -> void
+                  | (Integer n, values: Array[V]) { (V a, V b) -> V } -> void
 
     # x と y が同じグループに属するかどうかを判定する。
     def same: (Integer x, Integer y) -> bool
@@ -123,7 +119,7 @@ module Nanacl
     def weight: (Integer x) -> Integer
 
     # グループを取得する。
-    def groups: -> Array[Array[Integer]]
+    def groups: () -> Array[Array[Integer]]
   end
 end
 
@@ -140,15 +136,15 @@ class Array[unchecked out Elem] < Object
 
   # file: bsearch_right.rb
   # bsearchのfind-maximum版。
-  def bsearch_right: () { (Elem) -> bool } -> (Elem | nil)
+  def bsearch_right: () { (Elem) -> boolish } -> (Elem | nil)
 
   # file: bsearch_right.rb
   # bsearch_indexのfind-maximum版。
-  def bsearch_index_right: () { (Elem) -> bool } -> (Integer | nil)
+  def bsearch_index_right: () { (Elem) -> boolish } -> (Integer | nil)
 end
 
 class Range[out Elem] < Object
   # file: range_bsearch.rb
   # bsearchのfind-maximum版。
-  def bsearch_right: () { (Elem) -> bool } -> (Elem | nil)
+  def bsearch_right: () { (Elem) -> boolish } -> (Elem | nil)
 end

@@ -29,7 +29,7 @@ in_q.times do
     if uf.same?(in_u, in_v)
       puts uf.diff(in_v, in_u)
     else
-      puts -1
+      puts(-1)
     end
   end
 end

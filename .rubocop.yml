@@ -7,6 +7,8 @@ AllCops:
 require:
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-on-rbs
+  - rubocop-rubycw
 
 inherit_gem:
   syntax_tree: config/rubocop.yml
@@ -42,7 +44,4 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/DescribeClass:
-  Enabled: false
-
-Lint/AmbiguousOperator:
   Enabled: false
