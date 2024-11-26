@@ -19,3 +19,5 @@ gem "rspec-snapshot", "~> 2.0"
 
 gem "rubocop-rake", "~> 0.6.0"
 gem "rubocop-rspec", "~> 3.2"
+
+gem "rubocop-rubycw", "~> 0.1.6"

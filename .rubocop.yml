@@ -2,7 +2,7 @@ AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
   Exclude:
-    - ./spec/expand/output
+    - ./spec/expand/output/*
 
 require:
   - rubocop-rake
