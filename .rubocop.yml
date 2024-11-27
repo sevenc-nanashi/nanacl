@@ -3,6 +3,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - ./spec/expand/output/*
+    - ./vendor/**/*
 
 require:
   - rubocop-rake
