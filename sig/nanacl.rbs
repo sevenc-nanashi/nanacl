@@ -13,6 +13,14 @@ module Nanacl
   # log -> floorを正確に求める。
   def self.logi: (Integer value, Integer base) -> Integer
 
+  # file: rooti.rb
+  # n乗根の整数部分を求める。
+  def self.rooti: (Integer value, Integer base) -> Integer
+
+  # file: rooti.rb
+  # 平方根の整数部分を求める。
+  def self.sqrti: (Integer value) -> Integer
+
   # file: dijkstra.rb
   # ダイクストラ法を用いて、頂点から頂点への最短距離を求める。
   def self?.dijkstra: (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, allow_separated: false) -> Integer
