@@ -9,6 +9,7 @@ parser.banner = <<~BANNER
 Usage: nanacl [subcommand] [options]
 Subcommands:
   expand  Expand libraries
+  submit  Submit a solution
 BANNER
 
 parser.order!(ARGV)

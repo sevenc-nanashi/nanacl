@@ -1,13 +1,11 @@
-# frozen_string_literal: true
-require "English"
-require "fileutils"
+require_relative "../expand/expand"
 
 def run(args)
   expand_params = { mode: :blacklist, includes: %w[], excludes: %w[] }
 
   subparser =
     OptionParser.new do |opts|
-      opts.banner = "Usage: nanacl expand [options] FILE [OUTPUT]"
+      opts.banner = "Usage: nanacl submit [options] FILE [oj options]"
 
       opts.on("-h", "--help", "Prints this help") do
         puts opts
@@ -41,7 +39,6 @@ def run(args)
   end
 
   file = args[0]
-  output = args[1]
 
   unless File.exist?(file)
     warn "File not found: #{file}"
@@ -56,40 +53,40 @@ def run(args)
     removed_libraries:,
     content:
   }
-
-  prefix = output ? "" : "# "
-  puts "#{prefix}Kept libraries:"
+  puts "Kept libraries:"
   if kept_libraries.empty?
-    puts "#{prefix}  (none)"
+    puts "  (none)"
   else
-    kept_libraries.each { |lib| puts "#{prefix}- #{lib}" }
+    kept_libraries.each { |lib| puts "- #{lib}" }
   end
-  puts "#{prefix}Expanded libraries:"
+  puts "Expanded libraries:"
   if expanded_libraries.empty?
-    puts "#{prefix}  (none)"
+    puts "  (none)"
   else
-    expanded_libraries.each { |lib| puts "#{prefix}- #{lib}" }
+    expanded_libraries.each { |lib| puts "- #{lib}" }
   end
-  puts "#{prefix}Errored libraries:"
+  puts "Errored libraries:"
   if errored_libraries.empty?
-    puts "#{prefix}  (none)"
+    puts "  (none)"
   else
-    errored_libraries.each { |lib| puts "#{prefix}- #{lib}" }
+    errored_libraries.each { |lib| puts "- #{lib}" }
   end
-  puts "#{prefix}Removed libraries:"
+  puts "Removed libraries:"
   if removed_libraries.empty?
-    puts "#{prefix}  (none)"
+    puts "  (none)"
   else
-    removed_libraries.each { |lib| puts "#{prefix}- #{lib}" }
+    removed_libraries.each { |lib| puts "- #{lib}" }
   end
-  if output
-    dir = File.dirname(output)
-    FileUtils.mkdir_p(dir)
-    File.write(output, content)
+  if kept_libraries.empty? && expanded_libraries.empty? && errored_libraries.empty? && removed_libraries.empty?
+    puts "No libraries were expanded."
+
+    command = "oj s #{file} #{args[1..-1].join(" ")}"
   else
-    puts "#"
-    puts "# #{"-" * 78}"
-    puts ""
-    puts content
+    File.write("./expanded.rb", result)
+
+    command = "oj s ./expanded.rb #{args[1..-1].join(" ")}"
   end
+
+  puts "Running: #{command}"
+  system(command)
 end
