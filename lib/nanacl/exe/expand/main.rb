@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "English"
 require "fileutils"
+require_relative "expand"
 
 def run(args)
   expand_params = { mode: :blacklist, includes: %w[], excludes: %w[] }
