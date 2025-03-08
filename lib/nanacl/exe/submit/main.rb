@@ -77,12 +77,12 @@ def run(args)
   else
     removed_libraries.each { |lib| puts "- #{lib}" }
   end
-  if kept_libraries.empty? && expanded_libraries.empty? && errored_libraries.empty? && removed_libraries.empty?
+  if expanded_libraries.empty? && errored_libraries.empty? && removed_libraries.empty?
     puts "No libraries were expanded."
 
     command = "oj s #{file} #{args[1..-1].join(" ")}"
   else
-    File.write("./expanded.rb", result)
+    File.write("./expanded.rb", content)
 
     command = "oj s ./expanded.rb #{args[1..-1].join(" ")}"
   end
