@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative "../expand/expand"
 
 def run(args)
@@ -80,11 +81,11 @@ def run(args)
   if expanded_libraries.empty? && errored_libraries.empty? && removed_libraries.empty?
     puts "No libraries were expanded."
 
-    command = "oj s #{file} #{args[1..-1].join(" ")}"
+    command = "oj s #{file} #{args[1..].join(" ")}"
   else
     File.write("./expanded.rb", content)
 
-    command = "oj s ./expanded.rb #{args[1..-1].join(" ")}"
+    command = "oj s ./expanded.rb #{args[1..].join(" ")}"
   end
 
   puts "Running: #{command}"

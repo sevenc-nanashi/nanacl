@@ -3,7 +3,7 @@ require "English"
 require "json"
 require_relative "libraries"
 
-def expand(content, source_path, expand_params)
+def expand(content, _source_path, expand_params)
   internal_info_header = "nanacl_internal_info"
   main_placeholder = "main"
 
