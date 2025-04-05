@@ -4,14 +4,12 @@ module Nanacl
   module_function
 
   def rooti(value, base)
-    maybe_accurate = (value**(1.0 / base)).floor
-    if (maybe_accurate - 1)**base >= value
-      maybe_accurate - 1
-    elsif (maybe_accurate + 1)**base <= value
-      maybe_accurate + 1
-    else
-      maybe_accurate
-    end
+    return -1 if value < 0
+    return 0 if value == 0
+    return 1 if value == 1
+    maybe_accurate = (value**(1.0 / base)).floor - 1
+    maybe_accurate += 1 until (maybe_accurate + 1)**base > value
+    maybe_accurate
   end
 
   def sqrti(value)

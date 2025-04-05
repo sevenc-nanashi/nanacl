@@ -8,7 +8,8 @@ RSpec.describe "Nanacl.rooti" do
     [16, 4, 2],
     [16, 5, 1],
     [32**2, 2, 32],
-    [1000**3, 3, 1000]
+    [1000**3, 3, 1000],
+    [(10**18)-1, 2 , 999_999_999],
   ].each do |(value, base, expected)|
     it "works with value=#{value}, base=#{base}" do
       expect(Nanacl.rooti(value, base)).to eq(expected)
