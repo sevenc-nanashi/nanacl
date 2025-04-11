@@ -11,6 +11,7 @@
 
 Nanacl はライブラリ展開機能を提供します。
 AtCoder で提供されているライブラリは展開されません。詳細は[./lib/nanacl/exe/expand/libraries.rb](./lib/nanacl/exe/expand/libraries.rb) を参照。
+また、展開と提出を同時に行うコマンドもあります。
 
 <details>
 <summary>展開前後の例</summary>
