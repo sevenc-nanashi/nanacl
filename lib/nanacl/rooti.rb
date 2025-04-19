@@ -4,6 +4,7 @@ module Nanacl
   module_function
 
   def rooti(value, base)
+    return sqrti(value) if base == 2
     return -1 if value < 0
     return 0 if value == 0
     return 1 if value == 1
@@ -13,6 +14,9 @@ module Nanacl
   end
 
   def sqrti(value)
-    rooti(value, 2)
+    maybe_accurate = Integer.sqrt(value) - 1
+    maybe_accurate += 1 until (maybe_accurate + 1)**2 > value
+
+    maybe_accurate
   end
 end
