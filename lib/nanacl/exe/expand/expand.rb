@@ -2,6 +2,7 @@
 require "English"
 require "json"
 require_relative "libraries"
+require "securerandom"
 
 def expand(content, _source_path, expand_params)
   internal_info_header = "nanacl_internal_info"
@@ -19,6 +20,10 @@ def expand(content, _source_path, expand_params)
   errored_libraries = Set.new
   removed_libraries = Set.new
   nonce = 0
+  marker = "_nanacl_#{SecureRandom.hex(4)}_"
+
+  excludes = STD_LIBRARIES + expand_params[:excludes]
+  excludes += ATCODER_LIBRARIES if expand_params[:preset] == :atcoder
   loop do
     libraries = []
     content.gsub!(
@@ -42,11 +47,8 @@ def expand(content, _source_path, expand_params)
         if expand_params[:mode] == :whitelist
           expand_params[:includes].include?(package_path)
         else
-          (
-            ATCODER_LIBRARIES.include?(package_path) ||
-              STD_LIBRARIES.include?(package_path) ||
-              expand_params[:excludes].include?(module_path)
-          ) && !expand_params[:includes].include?(package_path)
+          excludes.include?(module_path) &&
+            !expand_params[:includes].include?(package_path)
         end
       if should_keep
         kept_libraries << module_path
@@ -67,7 +69,7 @@ def expand(content, _source_path, expand_params)
             #{library}
             LIBRARY
 
-            next("# #{original} # (expanded: $#{module_path}$)")
+            next("# #{original} # (expanded: #{marker}#{module_path}#{marker})")
           else
             unless errored_libraries.include?(module_path)
               warn "Failed to expand #{module_path}: not found"
@@ -89,7 +91,7 @@ def expand(content, _source_path, expand_params)
             #{library}
             LIBRARY
 
-            next("# #{original} # (expanded: $#{module_path}$)")
+            next("# #{original} # (expanded: #{marker}#{module_path}#{marker})")
           else
             unless errored_libraries.include?(module_path)
               warn "Failed to expand #{module_path}: not found"
@@ -127,7 +129,9 @@ def expand(content, _source_path, expand_params)
   content += "\n"
   content += "main.call\n"
   content.gsub!(/# #{internal_info_header} .+\n/, "")
-  content.gsub!(/\$(?<module_path>[^$]+)\$/) do |original|
+  content.gsub!(
+    /#{Regexp.escape(marker)}(?<module_path>.+?)#{Regexp.escape(marker)}/
+  ) do |original|
     module_path = $LAST_MATCH_INFO.named_captures["module_path"]
     line_index =
       content.lines.find_index do |line|

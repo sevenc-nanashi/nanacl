@@ -2,11 +2,17 @@
 require_relative "../expand/expand"
 
 def run(args)
-  expand_params = { mode: :blacklist, includes: %w[], excludes: %w[] }
+  command = "oj s %"
+  expand_params = {
+    mode: :blacklist,
+    includes: %w[],
+    excludes: %w[],
+    service: :atcoder
+  }
 
   subparser =
     OptionParser.new do |opts|
-      opts.banner = "Usage: nanacl submit [options] FILE [oj options]"
+      opts.banner = "Usage: nanacl submit [options] FILE [extra options]"
 
       opts.on("-h", "--help", "Prints this help") do
         puts opts
@@ -23,6 +29,12 @@ def run(args)
           exit
         end
       end
+      opts.on(
+        "-p",
+        "--preset=SERVICE",
+        "Specify SERVICE as preset. (atcoder or vanilla, default is atcoder)"
+      ) { |service| expand_params[:service] = service.to_sym }
+
       opts.on("-i", "--include=LIB", "Specify LIB as include path.") do |lib|
         expand_params[:mode] = :whitelist
         expand_params[:includes] << lib
@@ -30,6 +42,13 @@ def run(args)
       opts.on("-e", "--exclude=LIB", "Specify LIB as exclude path.") do |lib|
         expand_params[:excludes] << lib
       end
+
+      opts.on(
+        "-c",
+        "--command=COMMAND",
+        "Specify COMMAND as submission command. " \
+          "(% for the expanded file path, or omit to get content from stdin)"
+      ) { |cmd| command = cmd }
     end
 
   subparser.parse!(args)
@@ -78,16 +97,20 @@ def run(args)
   else
     removed_libraries.each { |lib| puts "- #{lib}" }
   end
-  if expanded_libraries.empty? && errored_libraries.empty? && removed_libraries.empty?
-    puts "No libraries were expanded."
+  file =
+    if expanded_libraries.empty? && errored_libraries.empty? &&
+         removed_libraries.empty?
+      puts "No libraries were expanded."
+    else
+      File.write("./expanded.rb", content)
+    end
 
-    command = "oj s #{file} #{args[1..].join(" ")}"
+  if command.include?("%")
+    command = command.gsub("%", file)
+    puts "Running: #{command}"
+    system(command)
   else
-    File.write("./expanded.rb", content)
-
-    command = "oj s ./expanded.rb #{args[1..].join(" ")}"
+    puts "Running with stdin: #{command}"
+    system(command, input: file)
   end
-
-  puts "Running: #{command}"
-  system(command)
 end

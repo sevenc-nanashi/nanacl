@@ -130,6 +130,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  ac-library-rb (~> 1.2)
   nanacl!
   rake (~> 13.0)
   rspec (~> 3.0)

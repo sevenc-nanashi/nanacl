@@ -4,7 +4,12 @@ require "fileutils"
 require_relative "expand"
 
 def run(args)
-  expand_params = { mode: :blacklist, includes: %w[], excludes: %w[] }
+  expand_params = {
+    mode: :blacklist,
+    includes: %w[],
+    excludes: %w[],
+    service: :atcoder
+  }
 
   subparser =
     OptionParser.new do |opts|
@@ -25,6 +30,12 @@ def run(args)
           exit
         end
       end
+      opts.on(
+        "-p",
+        "--preset=SERVICE",
+        "Specify SERVICE as preset. (atcoder or vanilla, default is atcoder)"
+      ) { |service| expand_params[:service] = service.to_sym }
+
       opts.on("-i", "--include=LIB", "Specify LIB as include path.") do |lib|
         expand_params[:mode] = :whitelist
         expand_params[:includes] << lib

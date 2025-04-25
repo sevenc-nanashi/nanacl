@@ -1,6 +1,6 @@
 # Nanacl
 
-自分用AtCoder用ライブラリ。
+自分用AtCoder用ライブラリ。\
 [nanacl.rbs](./sig/nanacl.rbs) を参照。
 
 ## 機能一覧
@@ -9,8 +9,9 @@
 
 #### ライブラリ展開機能
 
-Nanacl はライブラリ展開機能を提供します。
-AtCoder で提供されているライブラリは展開されません。詳細は[./lib/nanacl/exe/expand/libraries.rb](./lib/nanacl/exe/expand/libraries.rb) を参照。
+Nanacl はライブラリ展開機能を提供します。\
+AtCoder で提供されているライブラリは展開されません。詳細は[./lib/nanacl/exe/expand/libraries.rb](./lib/nanacl/exe/expand/libraries.rb) を参照。\
+この挙動は`-p`/`--preset`オプションで変更できます。\
 また、展開と提出を同時に行うコマンドもあります。
 
 <details>
@@ -96,13 +97,24 @@ main.call
 Usage: nanacl [subcommand] [options]
 Subcommands:
   expand  Expand libraries
+  submit  Submit a solution
 
 ❯ nanacl expand -h
 Usage: nanacl expand [options] FILE [OUTPUT]
     -h, --help                       Prints this help
     -m, --mode=MODE                  Specify MODE as expand mode. (blacklist or whitelist)
+    -p, --preset=SERVICE             Specify SERVICE as preset. (atcoder or vanilla, default is atcoder)
     -i, --include=LIB                Specify LIB as include path.
     -e, --exclude=LIB                Specify LIB as exclude path.
+
+❯ submit submit -h
+Usage: nanacl submit [options] FILE [extra options]
+    -h, --help                       Prints this help
+    -m, --mode=MODE                  Specify MODE as expand mode. (blacklist or whitelist)
+    -p, --preset=SERVICE             Specify SERVICE as preset. (atcoder or vanilla, default is atcoder)
+    -i, --include=LIB                Specify LIB as include path.
+    -e, --exclude=LIB                Specify LIB as exclude path.
+    -c, --command=COMMAND            Specify COMMAND as submission command. (% for the expanded file path, or omit to get content from stdin)
 ```
 
 ## ライセンス
