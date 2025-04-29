@@ -50,9 +50,9 @@ def expand(content, source_path, expand_params)
           .pre_match
           .lines
           .filter_map do |line|
-            line.match(
-              /# #{Regexp.escape(internal_info_header)} (?<info>.+)/
-            ) { |m| JSON.parse(m[:info], symbolize_names: true) }
+            line.match(/# #{Regexp.escape(internal_info_header)} (?<info>.+)/) do |m|
+              JSON.parse(m[:info], symbolize_names: true)
+            end
           end
           .last || {}
       is_relative = true if module_path.start_with?(".")
@@ -141,7 +141,7 @@ def expand(content, source_path, expand_params)
   content += "\n"
   content += "\n"
   content += "main.call\n"
-  content.gsub!(/# #{Regexp.escape(nternal_info_header)} .+\n/, "")
+  content.gsub!(/# #{Regexp.escape(internal_info_header)} .+\n/, "")
   content.gsub!(
     /#{Regexp.escape(marker)}(?<module_path>.+?)#{Regexp.escape(marker)}/
   ) do |original|

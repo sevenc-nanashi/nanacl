@@ -1,0 +1,3 @@
+Union of 1 and 2: 1
+dsu.same?(1, 2): true
+dsu.same?(1, 3): false
