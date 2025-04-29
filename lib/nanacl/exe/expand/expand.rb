@@ -3,9 +3,23 @@ require "English"
 require "json"
 require_relative "libraries"
 require "securerandom"
+require "rubygems"
 
-def expand(content, _source_path, expand_params)
-  internal_info_header = "nanacl_internal_info"
+def find_require_path(path)
+  if (load_path = $LOAD_PATH.resolve_feature_path(path))
+    return load_path
+  end
+  unless (gem = Gem::Specification.find_by_path(path))
+    return nil, nil
+  end
+
+  Gem.activate(gem.name, "= #{gem.version}")
+
+  $LOAD_PATH.resolve_feature_path(path)
+end
+
+def expand(content, source_path, expand_params)
+  internal_info_header = "$nanacl_internal_info$"
   main_placeholder = "main"
 
   header = "main = -> do # ".ljust(80, "=")
@@ -36,9 +50,9 @@ def expand(content, _source_path, expand_params)
           .pre_match
           .lines
           .filter_map do |line|
-            line.match(/# #{internal_info_header} (?<info>.+)/) do |m|
-              JSON.parse(m[:info], symbolize_names: true)
-            end
+            line.match(
+              /# #{Regexp.escape(internal_info_header)} (?<info>.+)/
+            ) { |m| JSON.parse(m[:info], symbolize_names: true) }
           end
           .last || {}
       is_relative = true if module_path.start_with?(".")
@@ -55,7 +69,7 @@ def expand(content, _source_path, expand_params)
       else
         expanded_libraries << module_path
         if is_relative
-          file_path = internal_info[:path] || file
+          file_path = internal_info[:path] || source_path
           source = internal_info[:source] || main_placeholder
           file_dir = File.dirname(file_path)
           module_path += ".rb" unless module_path.end_with?(".rb")
@@ -77,8 +91,7 @@ def expand(content, _source_path, expand_params)
             errored_libraries << module_path
           end
         else
-          type, path =
-            $LOAD_PATH.resolve_feature_path(module_path) || [nil, nil]
+          type, path = find_require_path(module_path)
           if type == :rb && path
             library = File.read(path)
             nonce += 1
@@ -128,7 +141,7 @@ def expand(content, _source_path, expand_params)
   content += "\n"
   content += "\n"
   content += "main.call\n"
-  content.gsub!(/# #{internal_info_header} .+\n/, "")
+  content.gsub!(/# #{Regexp.escape(nternal_info_header)} .+\n/, "")
   content.gsub!(
     /#{Regexp.escape(marker)}(?<module_path>.+?)#{Regexp.escape(marker)}/
   ) do |original|
