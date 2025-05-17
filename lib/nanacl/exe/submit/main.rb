@@ -33,7 +33,7 @@ def run(args)
         "-p",
         "--preset=SERVICE",
         "Specify SERVICE as preset. (atcoder or vanilla, default is atcoder)"
-      ) { |service| expand_params[:service] = service.to_sym }
+      ) { |service| expand_params[:preset] = service.to_sym }
 
       opts.on("-i", "--include=LIB", "Specify LIB as include path.") do |lib|
         expand_params[:mode] = :whitelist

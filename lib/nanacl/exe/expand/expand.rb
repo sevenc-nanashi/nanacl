@@ -13,7 +13,7 @@ def find_require_path(path)
     return nil, nil
   end
 
-  Gem.activate(gem.name, "= #{gem.version}")
+  gem.activate
 
   $LOAD_PATH.resolve_feature_path(path)
 end
@@ -50,9 +50,9 @@ def expand(content, source_path, expand_params)
           .pre_match
           .lines
           .filter_map do |line|
-            line.match(/# #{Regexp.escape(internal_info_header)} (?<info>.+)/) do |m|
-              JSON.parse(m[:info], symbolize_names: true)
-            end
+            line.match(
+              /# #{Regexp.escape(internal_info_header)} (?<info>.+)/
+            ) { |m| JSON.parse(m[:info], symbolize_names: true) }
           end
           .last || {}
       is_relative = true if module_path.start_with?(".")
@@ -61,7 +61,7 @@ def expand(content, source_path, expand_params)
         if expand_params[:mode] == :whitelist
           expand_params[:includes].include?(package_path)
         else
-          excludes.include?(module_path) &&
+          excludes.include?(package_path) &&
             !expand_params[:includes].include?(package_path)
         end
       if should_keep
