@@ -101,8 +101,10 @@ def run(args)
     if expanded_libraries.empty? && errored_libraries.empty? &&
          removed_libraries.empty?
       puts "No libraries were expanded."
+      file
     else
       File.write("./expanded.rb", content)
+      "./expanded.rb"
     end
 
   if command.include?("%")
