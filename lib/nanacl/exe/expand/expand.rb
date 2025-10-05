@@ -41,7 +41,7 @@ def expand(content, source_path, expand_params)
   loop do
     libraries = []
     content.gsub!(
-      /^require(?<relative>_relative)? (?<quote>"|')(?<module_path>.+?)\k<quote>/
+      /^ *require(?<relative>_relative)? (?<quote>"|')(?<module_path>.+?)\k<quote>/
     ) do |original|
       module_path = $LAST_MATCH_INFO.named_captures["module_path"]
       is_relative = !$LAST_MATCH_INFO.named_captures["relative"].nil?
