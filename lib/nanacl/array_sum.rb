@@ -6,12 +6,13 @@ class Array
       sum = 0
       each { |v| @sums << (sum += v) }
     end
+    range_begin = range.begin || 0
     if range.end.nil?
-      @sums[length] - @sums[range.begin]
+      @sums[length] - @sums[range_begin]
     elsif range.exclude_end?
-      @sums[range.end] - @sums[range.begin]
+      @sums[range.end] - @sums[range_begin]
     else
-      @sums[range.end + 1] - @sums[range.begin]
+      @sums[range.end + 1] - @sums[range_begin]
     end
   end
 end

@@ -18,4 +18,9 @@ RSpec.describe "Array#sum_in_range" do
     array = [1, 2, 3, 4, 5]
     expect(array.sum_in_range(1..)).to eq(14)
   end
+
+  it "works with nil begin" do
+    array = [1, 2, 3, 4, 5]
+    expect(array.sum_in_range(..3)).to eq(10)
+  end
 end
