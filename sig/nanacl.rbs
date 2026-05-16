@@ -21,6 +21,24 @@ module Nanacl
   # 平方根の整数部分を求める。
   def self.sqrti: (Integer value) -> Integer
 
+  # file: factorial.rb
+  # 階乗を必要な値まで事前計算する。
+  module Factorial
+    def self.prepare: (Integer n) -> void
+
+    # 順列の数を求める。
+    def self.n_permute_k: (Integer n, Integer k) -> AcLibraryRb::ModInt
+
+    # 組み合わせの数を求める。
+    def self.n_choose_k: (Integer n, Integer k) -> AcLibraryRb::ModInt
+
+    # 重複組み合わせ（nHk）の数を求める。
+    def self.n_multichoose_k: (Integer n, Integer k) -> AcLibraryRb::ModInt
+
+    # 各種類を少なくとも1つ含む重複組み合わせの数を求める。
+    def self.n_multichoose_k_at_least_one: (Integer n, Integer k) -> AcLibraryRb::ModInt
+  end
+
   # file: dijkstra.rb
   # ダイクストラ法を用いて、頂点から頂点への最短距離を求める。
   def self?.dijkstra: (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, allow_separated: false) -> Integer
@@ -156,3 +174,24 @@ class Range[out Elem] < Object
   # bsearchのfind-maximum版。
   def bsearch_right: () { (Elem) -> boolish } -> (Elem | nil)
 end
+
+class Integer
+  # file: ac-library-rb/modint
+  def to_modint: () -> AcLibraryRb::ModInt
+
+  # file: factorial.rb
+  # 階乗を求める。
+  def factorial: () -> AcLibraryRb::ModInt
+end
+
+module AcLibraryRb
+  class ModInt < Numeric
+    def val: () -> Integer
+
+    # file: factorial.rb
+    # 階乗を求める。
+    def factorial: () -> AcLibraryRb::ModInt
+  end
+end
+
+$nanacl_factorial_cache: Array[AcLibraryRb::ModInt]
