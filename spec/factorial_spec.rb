@@ -12,9 +12,18 @@ RSpec.describe "Nanacl::Factorial" do
       expect(Nanacl::Factorial.n_permute_k(5, 3).val).to eq(60)
     end
 
-    it "raises error with invalid k" do
-      expect { Nanacl::Factorial.n_permute_k(5, -1) }.to raise_error(ArgumentError)
-      expect { Nanacl::Factorial.n_permute_k(5, 6) }.to raise_error(ArgumentError)
+    it "returns zero with invalid arguments" do
+      expect(Nanacl::Factorial.n_permute_k(-1, 0).val).to eq(0)
+      expect(Nanacl::Factorial.n_permute_k(5, -1).val).to eq(0)
+      expect(Nanacl::Factorial.n_permute_k(5, 6).val).to eq(0)
+    end
+  end
+
+  describe ".n_permute_k!" do
+    it "raises error with invalid arguments" do
+      expect { Nanacl::Factorial.n_permute_k!(-1, 0) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_permute_k!(5, -1) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_permute_k!(5, 6) }.to raise_error(ArgumentError)
     end
   end
 
@@ -23,9 +32,18 @@ RSpec.describe "Nanacl::Factorial" do
       expect(Nanacl::Factorial.n_choose_k(5, 3).val).to eq(10)
     end
 
-    it "raises error with invalid k" do
-      expect { Nanacl::Factorial.n_choose_k(5, -1) }.to raise_error(ArgumentError)
-      expect { Nanacl::Factorial.n_choose_k(5, 6) }.to raise_error(ArgumentError)
+    it "returns zero with invalid arguments" do
+      expect(Nanacl::Factorial.n_choose_k(-1, 0).val).to eq(0)
+      expect(Nanacl::Factorial.n_choose_k(5, -1).val).to eq(0)
+      expect(Nanacl::Factorial.n_choose_k(5, 6).val).to eq(0)
+    end
+  end
+
+  describe ".n_choose_k!" do
+    it "raises error with invalid arguments" do
+      expect { Nanacl::Factorial.n_choose_k!(-1, 0) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_choose_k!(5, -1) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_choose_k!(5, 6) }.to raise_error(ArgumentError)
     end
   end
 
@@ -34,9 +52,16 @@ RSpec.describe "Nanacl::Factorial" do
       expect(Nanacl::Factorial.n_multichoose_k(3, 4).val).to eq(15)
     end
 
+    it "returns zero with invalid arguments" do
+      expect(Nanacl::Factorial.n_multichoose_k(0, 1).val).to eq(0)
+      expect(Nanacl::Factorial.n_multichoose_k(3, -1).val).to eq(0)
+    end
+  end
+
+  describe ".n_multichoose_k!" do
     it "raises error with invalid arguments" do
-      expect { Nanacl::Factorial.n_multichoose_k(0, 1) }.to raise_error(ArgumentError)
-      expect { Nanacl::Factorial.n_multichoose_k(3, -1) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_multichoose_k!(0, 1) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_multichoose_k!(3, -1) }.to raise_error(ArgumentError)
     end
   end
 
@@ -49,9 +74,20 @@ RSpec.describe "Nanacl::Factorial" do
       expect(Nanacl::Factorial.n_multichoose_k_at_least_one(3, 2).val).to eq(0)
     end
 
+    it "returns zero with invalid arguments" do
+      expect(Nanacl::Factorial.n_multichoose_k_at_least_one(0, 1).val).to eq(0)
+      expect(Nanacl::Factorial.n_multichoose_k_at_least_one(3, -1).val).to eq(0)
+    end
+  end
+
+  describe ".n_multichoose_k_at_least_one!" do
+    it "returns zero when k is less than n" do
+      expect(Nanacl::Factorial.n_multichoose_k_at_least_one!(3, 2).val).to eq(0)
+    end
+
     it "raises error with invalid arguments" do
-      expect { Nanacl::Factorial.n_multichoose_k_at_least_one(0, 1) }.to raise_error(ArgumentError)
-      expect { Nanacl::Factorial.n_multichoose_k_at_least_one(3, -1) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_multichoose_k_at_least_one!(0, 1) }.to raise_error(ArgumentError)
+      expect { Nanacl::Factorial.n_multichoose_k_at_least_one!(3, -1) }.to raise_error(ArgumentError)
     end
   end
 
@@ -66,8 +102,14 @@ RSpec.describe "Nanacl::Factorial" do
       expect(1000.factorial.val).to eq(naive)
     end
 
+    it "returns zero with negative integer" do
+      expect(-1.factorial.val).to eq(0)
+    end
+  end
+
+  describe "Integer#factorial!" do
     it "raises error with negative integer" do
-      expect { -1.factorial }.to raise_error(ArgumentError)
+      expect { -1.factorial! }.to raise_error(ArgumentError)
     end
   end
 
