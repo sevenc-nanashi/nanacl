@@ -69,6 +69,10 @@ def run(args)
     content:
   }
 
+  unless output
+    puts "# frozen_string_literal: true"
+  end
+
   prefix = output ? "" : "# "
   puts "#{prefix}Kept libraries:"
   if kept_libraries.empty?
