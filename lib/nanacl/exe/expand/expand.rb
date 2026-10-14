@@ -33,6 +33,7 @@ def expand(content, source_path, expand_params)
   expanded_libraries = Set.new
   errored_libraries = Set.new
   removed_libraries = Set.new
+  used_gems = Set.new
   nonce = 0
   marker = "_nanacl_#{SecureRandom.hex(4)}_"
 
@@ -56,6 +57,16 @@ def expand(content, source_path, expand_params)
           end
           .last || {}
       is_relative = true if module_path.start_with?(".")
+      unless is_relative
+        _, require_path = find_require_path(module_path)
+        gem =
+          Gem.loaded_specs.values.find do |spec|
+            spec.full_require_paths.any? do |path|
+              require_path&.start_with?("#{path}/")
+            end
+          end
+        used_gems << gem.name if gem
+      end
       package_path = module_path.split("/").first
       should_keep =
         if expand_params[:mode] == :whitelist
@@ -129,12 +140,23 @@ def expand(content, source_path, expand_params)
       content.lines[0..dependencies_line].join + libraries.join("\n") +
         content.lines[(dependencies_line + 1)..].join
   end
-  # content.insert(0, "# This file is expanded by nanacl.\n")
-  # content.insert(0, "# frozen_string_literal: true\n")
+  gem_list =
+    used_gems
+      .sort
+      .map do |name|
+        url =
+          if name == "nanacl"
+            "https://github.com/sevenc-nanashi/nanacl"
+          else
+            "https://rubygems.org/gems/#{name}"
+          end
+        "# - #{name}: #{url}\n"
+      end
+      .join
   content.insert(0, <<~RUBY)
   # frozen_string_literal: true
   # This file is expanded by nanacl.
-
+  #{"# Gems:\n#{gem_list}" unless gem_list.empty?}
   RUBY
   content += "\n"
   content += "# ".ljust(80, "=")

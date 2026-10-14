@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 # This file is expanded by nanacl.
+# Gems:
+# - ac-library-rb: https://rubygems.org/gems/ac-library-rb
 
 main = -> do # =================================================================
 # frozen_string_literal: true

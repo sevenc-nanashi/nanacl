@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 # This file is expanded by nanacl.
+# Gems:
+# - ac-library-rb: https://rubygems.org/gems/ac-library-rb
 
 main = -> do # =================================================================
 # frozen_string_literal: true
-# require "ac-library-rb/dsu" # (expanded: L18)
+# require "ac-library-rb/dsu" # (expanded: L20)
 
 dsu = AcLibraryRb::DSU.new(10)
 dsu.merge(1, 2)

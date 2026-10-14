@@ -12,6 +12,7 @@
 Nanacl はライブラリ展開機能を提供します。\
 AtCoder で提供されているライブラリは展開されません。詳細は[./lib/nanacl/exe/expand/libraries.rb](./lib/nanacl/exe/expand/libraries.rb) を参照。\
 この挙動は`-p`/`--preset`オプションで変更できます。\
+生成コードの先頭には、使用する gem の名前と RubyGems の URL をコメントとして付記します。\
 また、展開と提出を同時に行うコマンドもあります。
 
 <details>
@@ -28,10 +29,12 @@ puts Nanacl.logi(in_n, 2)
 ```ruby
 # frozen_string_literal: true
 # This file is expanded by nanacl.
+# Gems:
+# - nanacl: https://github.com/sevenc-nanashi/nanacl
 
 main = -> do # =================================================================
 # frozen_string_literal: true
-# require "nanacl/logi" # (expanded: L14)
+# require "nanacl/logi" # (expanded: L16)
 in_n = gets.chomp.to_i
 
 puts Nanacl.logi(in_n, 2)
