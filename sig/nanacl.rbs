@@ -43,6 +43,22 @@ module Nanacl
     def self.n_multichoose_k_at_least_one!: (Integer n, Integer k) -> AcLibraryRb::ModInt
   end
 
+  # file: graph.rb
+  # 多重辺を保持するグラフ。
+  class Graph[V < Object = Integer] < Hash[V, Array[[V, Integer]]]
+    def add_edge: (V from, V to, ?Integer weight) -> Array[[V, Integer]]
+    def add_dual_edge: (V from, V to, ?Integer weight) -> Array[[V, Integer]]
+    def []: (V key) -> Array[[V, Integer]]
+  end
+
+  # file: graph.rb
+  # 頂点間の最小の重みを保持するグラフ。
+  class MinGraph[V < Object = Integer] < Hash[V, Hash[V, Integer]]
+    def add_edge: (V from, V to, ?Integer weight) -> Integer?
+    def add_dual_edge: (V from, V to, ?Integer weight) -> Integer?
+    def []: (V key) -> Hash[V, Integer]
+  end
+
   # file: dijkstra.rb
   # ダイクストラ法を用いて、頂点から頂点への最短距離を求める。
   def self?.dijkstra: (Hash[Integer, Hash[Integer, Integer]] graph, Integer start, Integer to, allow_separated: false) -> Integer
