@@ -69,9 +69,20 @@ def run(args)
     content:
   }
 
-  unless output
-    puts "# frozen_string_literal: true"
+  if expanded_libraries.empty? && errored_libraries.empty? &&
+       removed_libraries.empty?
+    content = File.binread(file)
+    if output
+      FileUtils.mkdir_p(File.dirname(output))
+      File.binwrite(output, content)
+      puts "No libraries were expanded."
+    else
+      print content
+    end
+    return
   end
+
+  puts "# frozen_string_literal: true" unless output
 
   prefix = output ? "" : "# "
   puts "#{prefix}Kept libraries:"
