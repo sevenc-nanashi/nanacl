@@ -11,8 +11,8 @@ Gem::Specification.new do |spec|
   spec.summary = "自分用AtCoderライブラリ"
   spec.homepage = "https://github.com/sevenc-nanashi/nanacl"
   spec.license = "MIT"
-  # AtCoderのRubyは3.2.2
-  spec.required_ruby_version = ">= 3.2.2"
+  # AtCoderのRubyは3.4.5
+  spec.required_ruby_version = ">= 3.4.5"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 

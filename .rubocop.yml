@@ -1,7 +1,8 @@
 AllCops:
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.4
   NewCops: enable
   Exclude:
+    - '**/__gi_*'
     - ./spec/expand/output/*
     - ./vendor/**/*
 
@@ -46,3 +47,11 @@ RSpec/MultipleExpectations:
 
 RSpec/DescribeClass:
   Enabled: false
+
+RSpec/Output:
+  Exclude:
+    - spec/expand/fixture/**/*
+
+Style/OneClassPerFile:
+  Exclude:
+    - lib/nanacl/bsearch_right.rb

@@ -8,7 +8,7 @@ module Nanacl
 
   def dijkstra(graph, start, to, allow_separated: false)
     # @type var result: Hash[Integer, Integer]
-    result = graph.keys.each_with_object({}) { |node, hash| hash[node] = nil }
+    result = graph.keys.to_h { |node| [node, nil] }
 
     queue = AcLibraryRb::PriorityQueue.new { |a, b| a[1] < b[1] }
     result[start] = 0
@@ -40,7 +40,7 @@ module Nanacl
 
   def dijkstra_all(graph, start, allow_separated: false)
     # @type var result: Hash[Integer, Integer]
-    result = graph.keys.each_with_object({}) { |node, hash| hash[node] = nil }
+    result = graph.keys.to_h { |node| [node, nil] }
 
     queue = AcLibraryRb::PriorityQueue.new { |a, b| a[1] < b[1] }
     result[start] = 0
@@ -70,7 +70,7 @@ module Nanacl
 
   def dijkstra_path(graph, start, to, allow_separated: false)
     # @type var result: Hash[Integer, [Integer, Integer]]
-    result = graph.keys.each_with_object({}) { |node, hash| hash[node] = nil }
+    result = graph.keys.to_h { |node| [node, nil] }
 
     queue = AcLibraryRb::PriorityQueue.new { |a, b| a[2] < b[2] }
     result[start] = [0, -1]
