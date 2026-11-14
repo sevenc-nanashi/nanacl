@@ -12,6 +12,8 @@
 Nanacl はライブラリ展開機能を提供します。\
 AtCoder で提供されているライブラリは展開されません。詳細は[./lib/nanacl/exe/expand/libraries.rb](./lib/nanacl/exe/expand/libraries.rb) を参照。\
 この挙動は`-p`/`--preset`オプションで変更できます。\
+デフォルトではライブラリを先に配置し、main をラムダで包まず末尾に配置します。\
+`--main-first` を指定すると、従来の main を先頭に置く形式になります。\
 生成コードの先頭には、使用する gem の名前と RubyGems の URL をコメントとして付記します。\
 バイナリ提出用ファイルの生成には、後述の `binary` コマンドを使用できます。
 
@@ -32,15 +34,6 @@ puts Nanacl.logi(in_n, 2)
 # Gems:
 # - nanacl: https://github.com/sevenc-nanashi/nanacl
 
-main = -> do # =================================================================
-# frozen_string_literal: true
-# require "nanacl/logi" # (expanded: L16)
-in_n = gets.chomp.to_i
-
-puts Nanacl.logi(in_n, 2)
-
-end # --------------------------------------------------------------------------
-
 # === dependencies -------------------------------------------------------------
 # == nanacl/logi from main -----------------------------------------------------
 # frozen_string_literal: true
@@ -60,10 +53,12 @@ module Nanacl
   end
 end
 
+# === main ---------------------------------------------------------------------
+# frozen_string_literal: true
+# require "nanacl/logi" # (expanded: L7)
+in_n = gets.chomp.to_i
 
-# ==============================================================================
-
-main.call
+puts Nanacl.logi(in_n, 2)
 ```
 
 </details>
@@ -110,6 +105,7 @@ Usage: nanacl expand [options] FILE [OUTPUT]
     -p, --preset=SERVICE             Specify SERVICE as preset. (atcoder or vanilla, default is atcoder)
     -i, --include=LIB                Specify LIB as include path.
     -e, --exclude=LIB                Specify LIB as exclude path.
+        --main-first                 Place main before libraries using a lambda.
 
 ❯ nanacl binary -h
 Usage: nanacl binary [options] FILE [OUTPUT]
@@ -119,7 +115,8 @@ Usage: nanacl binary [options] FILE [OUTPUT]
 
 ### バイナリ提出用ファイルの生成
 
-[Spinel](https://github.com/matz/spinel) で Ruby ソースをコンパイルし、圧縮したバイナリを埋め込んだ Ruby ファイルを生成します。
+ライブラリを先に展開し、main を末尾に配置したソースを [Spinel](https://github.com/matz/spinel) でコンパイルして、圧縮したバイナリを埋め込んだ Ruby ファイルを生成します。
+生成ファイルの末尾には、`__END__` に続けて展開前のソースコードを添付します。
 `spinel` を PATH に配置し、C コンパイラを用意してください。
 提出先と同じ OS・CPU アーキテクチャで、glibc などの共有ライブラリも互換性のある環境で生成する必要があります。
 生成ファイルが提出先のソースコードのサイズ制限に収まることも確認してください。
@@ -132,9 +129,6 @@ nanacl binary main.rb > submission.rb
 # 追加のライブラリ検索パス
 nanacl binary -I ./lib main.rb submission.rb
 ```
-
-生成した `submission.rb` を Ruby として提出してください。実行時に一時ディレクトリへバイナリを復元し、標準入出力と引数を引き継いで実行します。
-`submit` コマンドは削除しました。提出には `oj submit` などを使用してください。
 
 ## ライセンス
 

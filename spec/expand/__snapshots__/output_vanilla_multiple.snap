@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 # This file is expanded by nanacl.
 
-main = -> do # =================================================================
-# frozen_string_literal: true
-
-# require "lib" # (expanded: L25)
-
-hello_world
-
-end # --------------------------------------------------------------------------
-
 # === dependencies -------------------------------------------------------------
 # == lib2 from lib -------------------------------------------------------------
 # frozen_string_literal: true
@@ -24,13 +15,15 @@ end
 
 # == lib from main -------------------------------------------------------------
 # frozen_string_literal: true
-# require "lib2" # (expanded: L14)
+# require "lib2" # (expanded: L5)
 
 def hello_world
   puts "#{hello} #{world}"
 end
 
+# === main ---------------------------------------------------------------------
+# frozen_string_literal: true
 
-# ==============================================================================
+# require "lib" # (expanded: L16)
 
-main.call
+hello_world

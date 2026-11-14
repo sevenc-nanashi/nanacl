@@ -3,19 +3,6 @@
 # Gems:
 # - ac-library-rb: https://rubygems.org/gems/ac-library-rb
 
-main = -> do # =================================================================
-# frozen_string_literal: true
-# require "ac-library-rb/dsu" # (expanded: L20)
-
-dsu = AcLibraryRb::DSU.new(10)
-dsu.merge(1, 2)
-
-puts "Union of 1 and 2: #{dsu.find(1)}"
-puts "dsu.same?(1, 2): #{dsu.same?(1, 2)}"
-puts "dsu.same?(1, 3): #{dsu.same?(1, 3)}"
-
-end # --------------------------------------------------------------------------
-
 # === dependencies -------------------------------------------------------------
 # == ac-library-rb/dsu from main -----------------------------------------------
 module AcLibraryRb
@@ -81,7 +68,13 @@ module AcLibraryRb
   UnionFind = DSU
 end
 
+# === main ---------------------------------------------------------------------
+# frozen_string_literal: true
+# require "ac-library-rb/dsu" # (expanded: L7)
 
-# ==============================================================================
+dsu = AcLibraryRb::DSU.new(10)
+dsu.merge(1, 2)
 
-main.call
+puts "Union of 1 and 2: #{dsu.find(1)}"
+puts "dsu.same?(1, 2): #{dsu.same?(1, 2)}"
+puts "dsu.same?(1, 3): #{dsu.same?(1, 3)}"

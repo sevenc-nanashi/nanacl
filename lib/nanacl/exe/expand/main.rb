@@ -43,6 +43,9 @@ def run(args)
       opts.on("-e", "--exclude=LIB", "Specify LIB as exclude path.") do |lib|
         expand_params[:excludes] << lib
       end
+      opts.on("--main-first", "Place main before libraries using a lambda.") do
+        expand_params[:main_first] = true
+      end
     end
 
   subparser.parse!(args)

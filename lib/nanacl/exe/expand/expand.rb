@@ -22,13 +22,22 @@ def expand(content, source_path, expand_params)
   internal_info_header = "$nanacl_internal_info$"
   main_placeholder = "main"
 
-  header = "main = -> do # ".ljust(80, "=")
-  footer = "end # ".ljust(80, "-")
-  content = <<~RUBY
-  #{header}
-  #{content}
-  #{footer}
-  RUBY
+  if expand_params[:main_first]
+    header = "main = -> do # ".ljust(80, "=")
+    footer = "end # ".ljust(80, "-")
+    content = <<~RUBY
+    #{header}
+    #{content}
+    #{footer}
+    RUBY
+  else
+    main_info = JSON.generate({ path: source_path, source: main_placeholder })
+    content = <<~RUBY
+    #{"# === main ".ljust(80, "-")}
+    # #{internal_info_header} #{main_info}
+    #{content.chomp}
+    RUBY
+  end
   kept_libraries = Set.new
   expanded_libraries = Set.new
   errored_libraries = Set.new
@@ -130,9 +139,13 @@ def expand(content, source_path, expand_params)
 
     break if libraries.empty?
     unless content.include?("# === dependencies ")
-      content += "\n"
-      content += "# === dependencies ".ljust(80, "-")
-      content += "\n"
+      dependencies_header = "\n#{"# === dependencies ".ljust(80, "-")}\n"
+      content =
+        if expand_params[:main_first]
+          content + dependencies_header
+        else
+          dependencies_header.delete_prefix("\n") + content
+        end
     end
     dependencies_line =
       content.lines.find_index { |line| line.include?("# === dependencies ") }
@@ -158,11 +171,13 @@ def expand(content, source_path, expand_params)
   # This file is expanded by nanacl.
   #{"# Gems:\n#{gem_list}" unless gem_list.empty?}
   RUBY
-  content += "\n"
-  content += "# ".ljust(80, "=")
-  content += "\n"
-  content += "\n"
-  content += "main.call\n"
+  if expand_params[:main_first]
+    content += "\n"
+    content += "# ".ljust(80, "=")
+    content += "\n"
+    content += "\n"
+    content += "main.call\n"
+  end
   content.gsub!(/# #{Regexp.escape(internal_info_header)} .+\n/, "")
   content.gsub!(
     /#{Regexp.escape(marker)}(?<module_path>.+?)#{Regexp.escape(marker)}/
