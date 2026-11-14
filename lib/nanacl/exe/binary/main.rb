@@ -52,7 +52,7 @@ def run(args)
       unless system(
                "spinel",
                *$LOAD_PATH.flat_map { |path| ["-I", path] },
-               "--require-gate",
+               "--strict-require",
                "--link",
                "-s",
                source,
