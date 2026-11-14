@@ -9,7 +9,7 @@ parser.banner = <<~BANNER
 Usage: nanacl [subcommand] [options]
 Subcommands:
   expand  Expand libraries
-  submit  Submit a solution
+  binary  Generate a binary submission
 BANNER
 
 parser.order!(ARGV)

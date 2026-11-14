@@ -13,7 +13,7 @@ Nanacl はライブラリ展開機能を提供します。\
 AtCoder で提供されているライブラリは展開されません。詳細は[./lib/nanacl/exe/expand/libraries.rb](./lib/nanacl/exe/expand/libraries.rb) を参照。\
 この挙動は`-p`/`--preset`オプションで変更できます。\
 生成コードの先頭には、使用する gem の名前と RubyGems の URL をコメントとして付記します。\
-また、展開と提出を同時に行うコマンドもあります。
+バイナリ提出用ファイルの生成には、後述の `binary` コマンドを使用できます。
 
 <details>
 <summary>展開前後の例</summary>
@@ -101,7 +101,7 @@ main.call
 Usage: nanacl [subcommand] [options]
 Subcommands:
   expand  Expand libraries
-  submit  Submit a solution
+  binary  Generate a binary submission
 
 ❯ nanacl expand -h
 Usage: nanacl expand [options] FILE [OUTPUT]
@@ -111,15 +111,30 @@ Usage: nanacl expand [options] FILE [OUTPUT]
     -i, --include=LIB                Specify LIB as include path.
     -e, --exclude=LIB                Specify LIB as exclude path.
 
-❯ submit submit -h
-Usage: nanacl submit [options] FILE [extra options]
+❯ nanacl binary -h
+Usage: nanacl binary [options] FILE [OUTPUT]
     -h, --help                       Prints this help
-    -m, --mode=MODE                  Specify MODE as expand mode. (blacklist or whitelist)
-    -p, --preset=SERVICE             Specify SERVICE as preset. (atcoder or vanilla, default is atcoder)
-    -i, --include=LIB                Specify LIB as include path.
-    -e, --exclude=LIB                Specify LIB as exclude path.
-    -c, --command=COMMAND            Specify COMMAND as submission command. (% for the expanded file path, or omit to get content from stdin)
+    -I DIR                           Add a library search path.
 ```
+
+### バイナリ提出用ファイルの生成
+
+[Spinel](https://github.com/matz/spinel) で Ruby ソースをコンパイルし、圧縮したバイナリを埋め込んだ Ruby ファイルを生成します。
+`spinel` を PATH に配置し、C コンパイラを用意してください。
+提出先と同じ OS・CPU アーキテクチャで、glibc などの共有ライブラリも互換性のある環境で生成する必要があります。
+生成ファイルが提出先のソースコードのサイズ制限に収まることも確認してください。
+Spinel が対応していない Ruby の機能や gem は使用できません。
+
+```sh
+nanacl binary main.rb submission.rb
+# 出力先を省略すると標準出力へ出力
+nanacl binary main.rb > submission.rb
+# 追加のライブラリ検索パス
+nanacl binary -I ./lib main.rb submission.rb
+```
+
+生成した `submission.rb` を Ruby として提出してください。実行時に一時ディレクトリへバイナリを復元し、標準入出力と引数を引き継いで実行します。
+`submit` コマンドは削除しました。提出には `oj submit` などを使用してください。
 
 ## ライセンス
 
